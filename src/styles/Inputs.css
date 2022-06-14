@@ -1,0 +1,84 @@
+form > div > div > input:first-of-type {
+    margin-bottom: 20px;
+}
+
+input {
+    height: 50px;
+    border-radius: 4px;
+    border: 1px solid silver;
+    padding: 0 15px;
+}
+
+i::after {
+    position: absolute;
+    font-style: normal;
+    color: gray;
+    transition: margin-top 150ms linear, margin-left 150ms linear;
+}
+
+.tool-tip-1:after {
+    content: "Number of kilometers";
+    margin-top: -70px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.numbers-kilometers:invalid + .tool-tip-1:after {
+    margin-top: -58px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.tool-tip-2:after {
+    content: "Price per one kilometer";
+    margin-top: -50px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.price-kilometers:invalid + .tool-tip-2:after {
+    margin-top: -38px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.number-hours:invalid + .tool-tip-3:after{
+    margin-top: -58px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.tool-tip-3:after {
+    content: "Number of hours";
+    margin-top: -70px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.tool-tip-4:after {
+    content: "Price per one hour";
+    margin-top: -50px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.price-hours:invalid + .tool-tip-4:after {
+    margin-top: -38px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.tool-tip-5:after {
+    content: "Total Income";
+    margin-left: -165px;
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+.total-income:invalid + .tool-tip-5:after{
+    margin-left: -155px;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+

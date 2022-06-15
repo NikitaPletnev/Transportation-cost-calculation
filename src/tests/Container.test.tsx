@@ -1,10 +1,10 @@
 import renderer from 'react-test-renderer';
 import React from "react";
-import App from "../components/App";
+import Container from "../components/Container";
 
-it('snapshot test for App element', () => {
+it('snapshot test for Container element', () => {
     const tree = renderer
-        .create(<App/>)
+        .create(<Container/>)
         .toJSON();
     expect(tree).toMatchSnapshot();
 });

@@ -1,36 +1,65 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import '../styles/Container.css'
 import '../styles/Inputs.css'
+import {calculateCost} from "../api/helper";
+import FormParams from "./FormParams";
+import {InputElementInterface} from "./interfaces/InputElementInterface";
+import Loader from "./Loader";
 
 const Container = () => {
+
+    const [loading, setLoading] = useState(false);
+    const [cost, setCost] = useState('');
+
+    const inputElements: InputElementInterface[] = [
+        {inputClass: 'numbers_kilometers', tooltipClass: 'tool_tip_1'},
+        {inputClass: 'price_kilometers', tooltipClass: 'tool_tip_2'},
+        {inputClass: 'number_hours', tooltipClass: 'tool_tip_3'},
+        {inputClass: 'price_hours', tooltipClass: 'tool_tip_4'},
+    ]
+
+    const getCost = (e: FormEvent<any>): void => {
+        e.preventDefault();
+        const formData = Object.fromEntries(new FormData(e.target as any).entries());
+        setLoading(true)
+        calculateCost(formData).then((response) => {
+            response.json().then((resource) => {
+                setCost(resource?.result || 0);
+                setLoading(false)
+            })
+        }).catch((err) => {
+            console.log(err);
+            setLoading(false)
+        })
+    }
+
+    const renderCost = () => {
+        if (loading) {
+            return <Loader/>
+        }
+        return (
+            <span className={(!!cost.length || parseInt(cost) <= 0) ? 'disadvantageous' : 'profitable'}>
+                        {cost}
+                    </span>
+        )
+    }
+
     return (
         <section>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                const formData = Object.fromEntries(new FormData(e.target as any).entries())
-                console.log(formData);
-            }}>
+            <form onSubmit={getCost}>
                 <div>
-                    <div>
-                        <p>Distance parameters </p>
-                        <input className='numbers-kilometers' name={'numbers-kilometers'} type={"number"} required/>
-                        <i className='tool-tip-1'/>
-                        <input className='price-kilometers' name={'price-kilometers'} type={"number"} required/>
-                        <i className='tool-tip-2'/>
-                    </div>
-                    <div>
-                        <p>Time parameters</p>
-                        <input className='number-hours' name={'number-hours'} type={"number"} required/>
-                        <i className='tool-tip-3'/>
-                        <input className='price-hours' name={'price-hours'} type={"number"} required/>
-                        <i className='tool-tip-4'/>
-                    </div>
+                    <FormParams title={'Distance parameters'} elements={inputElements.slice(0, 2)}/>
+                    <FormParams title={'Time parameters'} elements={inputElements.slice(2, 4)}/>
                 </div>
                 <p>Total income</p>
-                <input className='total-income' name={'total-income'} type={"number"} required/>
-                <i className='tool-tip-5'/>
+                <label>
+                    <input className='total_income' name={'total_income'} type={"number"} required/>
+                    <i className='tool_tip_5'/>
+                </label>
                 <button type={"submit"}>Calculate cost</button>
-            <p className='cost'>Transportation cost: </p>
+                <p className='cost'>Transportation cost:&nbsp;
+                    {renderCost()}
+                </p>
             </form>
         </section>
     )

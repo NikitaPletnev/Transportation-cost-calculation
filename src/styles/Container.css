@@ -104,3 +104,32 @@ form > button {
     font-size: 24px;
 }
 
+.cost > span {
+    font-size: 36px;
+}
+
+.disadvantageous {
+    color: #9d0208;
+}
+
+.profitable {
+    color: #52b788;
+}
+
+
+@media screen and (max-width: 920px) {
+    section {
+        height: 90%;
+        width: 80%;
+    }
+    form > div {
+        display: block;
+    }
+    form > div > div:first-of-type {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    form > button {
+        position: fixed;
+    }
+}

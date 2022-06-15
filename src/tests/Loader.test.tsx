@@ -1,10 +1,10 @@
 import renderer from 'react-test-renderer';
 import React from "react";
-import App from "../components/App";
+import Loader from "../components/Loader";
 
-it('snapshot test for App element', () => {
+it('snapshot test for Loader element', () => {
     const tree = renderer
-        .create(<App/>)
+        .create(<Loader/>)
         .toJSON();
     expect(tree).toMatchSnapshot();
 });
